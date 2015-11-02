@@ -1,0 +1,20 @@
+{
+  "name": "shotten_totten",
+  "version": "1.0.0",
+  "description": "Web application of the cards game Shotten Totten",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.0.17",
+    "babel-loader": "^6.0.1",
+    "webpack": "^1.12.2"
+  },
+  "dependencies": {
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2"
+  }
+}
