@@ -1,7 +1,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+require("./stylesheets/theme.less");
+
 ReactDOM.render(
-  <h1>Hello, world!</h1>,
+  <Game />,
   document.getElementById('content')
 );
