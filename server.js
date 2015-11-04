@@ -7,6 +7,7 @@ var app = express();
 app.set('port', (process.env.PORT || 3000));
 
 app.use('/', express.static(__dirname));
+app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap/less')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true

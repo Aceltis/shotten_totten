@@ -1,5 +1,6 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+var React = require('react'),
+	ReactDOM = require('react-dom'),
+	Game = require('./components/game');
 
 require("./stylesheets/theme.less");
 
