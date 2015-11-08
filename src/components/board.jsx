@@ -1,10 +1,12 @@
-var React = require('react');
+var React = require('react'),
+	Stone = require('./stone');
 
 module.exports = React.createClass({
 	render: function() {
+		// Stone list
 		return (
 			<div>
-				Rules trucv
+				hey
 			</div>
 		);
 	}

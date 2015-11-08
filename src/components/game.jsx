@@ -1,12 +1,29 @@
 var React = require('react'),
 	Rules = require('./rules'),
-	Table = require('./table');
+	Player = require('./player'),
+	Board = require('./board'),
+	CardStore = require('../stores/cardStore'),
+	CardActions = require('../actions/cardStoreActions');
 
-module.exports = React.createClass({
+function getCardState() {
+	return {
+		cards: CardStore.getCards()
+	}
+};
+
+var Game = React.createClass({
 	getInitialState: function() {
 		return {
+			cardStack: getCardState(),
 			showRules: !this.isMobile()
 		}
+	},
+	componentDidMount: function() {
+		CardStore.addChangeListener(this._onChange);
+		CardActions.createStack();
+	},
+	componentWillUnmount: function() {
+		CardStore.removeChangeListener(this._onChange);
 	},
 	isMobile: function() {
 		return /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -32,14 +49,20 @@ module.exports = React.createClass({
 					<div className="st-content">
 						<div className="container-fluid fullHeight no-padding">
 							<div className="row fullHeight">
-								<div className="col-md-12 fullHeight">
-									<Table />
-								</div>
+								<Player />
+								<Board />
+								<Player />
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		);
+	},
+
+	_onChange: function() {
+		this.setState(getCardState());
 	}
 });
+
+module.exports = Game;

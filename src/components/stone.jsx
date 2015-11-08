@@ -1,10 +1,11 @@
-var React = require('react');
+var React = require('react'),
+	Slot = require('./slot');
 
 module.exports = React.createClass({
 	render: function() {
 		return (
 			<div>
-				Rules trucv
+				Hello
 			</div>
 		);
 	}

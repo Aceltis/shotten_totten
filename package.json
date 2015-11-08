@@ -2,8 +2,9 @@
   "name": "shotten_totten",
   "version": "1.0.0",
   "description": "Web application of the cards game Shotten Totten",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "start": "webpack-dev-server --hot --inline",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,15 +16,21 @@
     "babel-preset-react": "^6.0.15",
     "css-loader": "^0.21.0",
     "extract-text-webpack-plugin": "^0.9.0",
+    "file-loader": "^0.8.4",
+    "gulp-util": "^3.0.7",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
+    "react-hot-loader": "^1.3.0",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.2"
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.1"
   },
   "dependencies": {
     "body-parser": "^1.14.1",
     "bootstrap": "^3.3.5",
     "express": "^4.13.3",
+    "flux": "^2.1.1",
+    "gulp": "^3.9.0",
     "react": "^0.14.2",
     "react-dom": "^0.14.2"
   }

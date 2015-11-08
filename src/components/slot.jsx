@@ -1,10 +1,11 @@
-var React = require('react');
+var React = require('react'),
+	Card = require('./card');
 
 module.exports = React.createClass({
 	render: function() {
 		return (
 			<div>
-				Rules trucv
+				Hello
 			</div>
 		);
 	}
