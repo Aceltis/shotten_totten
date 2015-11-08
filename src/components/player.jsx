@@ -12,13 +12,14 @@ function getCardState() {
 var Player = React.createClass({
 	getInitialState: function() {
 		return {
-			cards: getCardState()
+			cards: getCardState().cards
 		}
 	},
 	componentWillMount: function() {
 		CardActions.firstDraw();
 	},
 	render: function() {
+		console.log(this.state.cards);
 		return (
 			<div>
 				Hello

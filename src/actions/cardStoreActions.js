@@ -1,21 +1,21 @@
-var AppDispatcher = require('../dispatcher/appDispatcher');
+var AppDispatcher = require('../dispatchers/appDispatcher');
 var CardConstants = require('../constants/cardConstants');
 
 var CardStoreActions = {
     createStack: function() {
-        AppDispatcher.handleAction({
+        AppDispatcher.handleViewAction({
             actionType: CardConstants.CREATE_STACK
         });
     },
 
     firstDraw: function() {
-        AppDispatcher.handleAction({
+        AppDispatcher.handleViewAction({
             actionType: CardConstants.FIRST_DRAW
         });
     },
 
     getCard: function() {
-        AppDispatcher.handleAction({
+        AppDispatcher.handleViewAction({
             actionType: CardConstants.GET_CARD
         });
     }

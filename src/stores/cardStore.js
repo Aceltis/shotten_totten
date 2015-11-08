@@ -2,11 +2,33 @@ var AppDispatcher = require('../dispatchers/appDispatcher');
 var CardConstants = require('../constants/cardConstants');
 var GameConstants = require('../constants/gameConstants');
 var EventEmitter = require('events').EventEmitter;
-var merge = require('react/lib/merge');
+var assign = require('object-assign');
+
+var CHANGE_EVENT = 'change';
 
 // Internal object of card stack
 var _cards = [];
 var _lastDraw = [];
+
+function shuffle(array) {
+    var currentIndex = array.length,
+        temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
 
 function createStack() {
     // Create a random stack off all cards in game
@@ -24,8 +46,8 @@ function createStack() {
         }
     }
 
-    // Shuffle the cards TODO
-    _cards = cardsPopulation;
+    // Shuffle the cards
+    _cards = shuffle(cardsPopulation);
 };
 
 function firstDraw() {
@@ -45,7 +67,7 @@ function getCard() {
     _lastDraw.push(card);
 };
 
-var CardStore = merge(EventEmitter.prototype, {
+var CardStore = assign({}, EventEmitter.prototype, {
     // Return cards stack
     getCards: function() {
         return _cards;
@@ -56,40 +78,40 @@ var CardStore = merge(EventEmitter.prototype, {
     },
 
     emitChange: function() {
-        this.emit('change');
+        this.emit(CHANGE_EVENT);
     },
 
     addChangeListener: function(callback) {
-        this.on('change', callback);
+        this.on(CHANGE_EVENT, callback);
     },
 
     removeChangeListener: function(callback) {
-        this.removeListener('change', callback);
-    }
-});
+        this.removeListener(CHANGE_EVENT, callback);
+    },
 
-AppDispatcher.register(function(payload) {
-    var action = payload.action;
+    dispatcherIndex: AppDispatcher.register(function(payload) {
+        var action = payload.action;
 
-    // Define what to do for certain actions
-    switch (action.actionType) {
-        case CardConstants.CREATE_STACK:
-            createStack();
-            break;
-        case CardConstants.FIRST_DRAW:
-            firstDraw();
-            break;
-        case CardConstants.GET_CARD:
-            getCard();
-            break;
-        default:
-            return true;
-    }
+        // Define what to do for certain actions
+        switch (action.actionType) {
+            case CardConstants.CREATE_STACK:
+                createStack();
+                break;
+            case CardConstants.FIRST_DRAW:
+                firstDraw();
+                break;
+            case CardConstants.GET_CARD:
+                getCard();
+                break;
+            default:
+                return true;
+        }
 
-    // If action was acted upon, emit change event
-    CardStore.emitChange();
+        // If action was acted upon, emit change event
+        CardStore.emitChange();
 
-    return true;
+        return true;
+    })
 });
 
 module.exports = CardStore;

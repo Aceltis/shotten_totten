@@ -7,14 +7,14 @@ var React = require('react'),
 
 function getCardState() {
 	return {
-		cards: CardStore.getCards()
+		cardStack: CardStore.getCards()
 	}
 };
 
 var Game = React.createClass({
 	getInitialState: function() {
 		return {
-			cardStack: getCardState(),
+			cardStack: getCardState().cardStack,
 			showRules: !this.isMobile()
 		}
 	},
@@ -59,7 +59,6 @@ var Game = React.createClass({
 			</div>
 		);
 	},
-
 	_onChange: function() {
 		this.setState(getCardState());
 	}
