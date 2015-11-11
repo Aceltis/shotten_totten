@@ -30,16 +30,21 @@ module.exports = {
             // Files (Fonts)
             {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-                loader: 'file-loader'
+                loader: 'url-loader'
+            },
+            // Copy images to dist
+            {
+                test: /\.(png|jpg)$/,
+                loader: "url-loader",
             },
             // Copy html to dist
             {
                 test: /\.html$/,
-                loader: "file?name=[name].[ext]",
+                loader: "file-loader?name=[name].[ext]",
             },
         ]
     },
     plugins: [
-        new ExtractTextPlugin("[name].css")
+        new ExtractTextPlugin("assets/css/theme.css")
     ]
 };

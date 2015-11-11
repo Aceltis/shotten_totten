@@ -1,0 +1,108 @@
+.orange {
+	color: #ff9966;
+}
+
+.red {
+	color: #ff1a1a;
+}
+
+.green {
+	color: #339933;
+}
+
+.greenlight {
+	color: #99cc00;
+}
+
+.blue {
+	color: #00ccff;
+}
+
+.purple {
+	color: #a74dff;
+}
+
+.fullHeight {
+	height: 100%;
+}
+
+.playerContainer {
+	height: 20%;
+}
+
+.boardContainer {
+	height: 60%;
+}
+
+.nav-tabs.nav-justified > li {
+	float: left;
+	display: block;
+}
+
+.cardContainer > li {
+	width: calc(100% / 6) !important;
+}
+
+.card {
+	width: 90%;
+	margin: auto;
+	border-radius: @border-radius-base;
+	height: 100%;
+	-webkit-box-shadow: 1px 1px 5px 2px rgba(0,0,0,0.29);
+    -moz-box-shadow: 1px 1px 5px 2px rgba(0,0,0,0.29);
+    box-shadow: 1px 1px 5px 2px rgba(0,0,0,0.29);
+    vertical-align: middle;
+    text-align: center;
+    transition: 0.25s;
+
+    span {
+    	font-size: 5em;
+   		font-weight: bold;
+    	vertical-align: middle;
+    }
+
+    &:hover {
+    	cursor: pointer;
+    	background: @gray-lighter;
+    }
+
+    &.selected {
+    	background: #e5ffe5;
+    }
+}
+
+.stoneContainer > li {
+	width: calc(100% / 9) !important;
+	padding: 10px 0;
+}
+
+.slots {
+	height: 40%;
+	width: 100%;
+
+	.slot {
+		width: 90%;
+		margin: auto;
+		height: 31%;
+		margin-bottom: 2%;
+		border-radius: @border-radius-base;
+		background: @gray-lighter;
+		transition: 0.25s;
+		font-size: 0.5em;
+
+		&:hover {
+			cursor: pointer;
+			background: @gray-light;
+		}
+	}
+}
+
+.stone {
+	height: 20%;
+	width: 100%;
+	background-image: url('../img/stone.jpg');
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+

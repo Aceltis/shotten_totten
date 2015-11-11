@@ -2,23 +2,19 @@ var AppDispatcher = require('../dispatchers/appDispatcher');
 var CardConstants = require('../constants/cardConstants');
 
 var CardStoreActions = {
-    createStack: function() {
+    selectCard: function(playerIndex, cards) {
         AppDispatcher.handleViewAction({
-            actionType: CardConstants.CREATE_STACK
+            actionType: CardConstants.SELECT_PLAYER_CARD,
+            playerIndex: playerIndex,
+            cards: cards
         });
     },
-
-    firstDraw: function() {
+    removeSelectedCard: function(playerIndex) {
         AppDispatcher.handleViewAction({
-            actionType: CardConstants.FIRST_DRAW
+            actionType: CardConstants.REMOVE_SELECTED_CARD,
+            playerIndex: playerIndex
         });
     },
-
-    getCard: function() {
-        AppDispatcher.handleViewAction({
-            actionType: CardConstants.GET_CARD
-        });
-    }
 };
 
 module.exports = CardStoreActions;

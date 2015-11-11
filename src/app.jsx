@@ -2,7 +2,7 @@ var React = require('react'),
 	ReactDOM = require('react-dom'),
 	Game = require('./components/game');
 
-//require("./stylesheets/theme.less");
+require("./assets/less/theme.less");
 
 var STONES = 10;
 

@@ -8,7 +8,8 @@ var CHANGE_EVENT = 'change';
 
 // Internal object of card stack
 var _cards = [];
-var _lastDraw = [];
+var _hands = [];
+var _selectedCard = [];
 
 function shuffle(array) {
     var currentIndex = array.length,
@@ -30,7 +31,7 @@ function shuffle(array) {
     return array;
 }
 
-function createStack() {
+(function createStack() {
     // Create a random stack off all cards in game
     var cardsPopulation = [];
     var colors = CardConstants.COLORS;
@@ -48,23 +49,46 @@ function createStack() {
 
     // Shuffle the cards
     _cards = shuffle(cardsPopulation);
-};
+    _hands[0] = firstDraw();
+    _hands[1] = firstDraw();
+})();
 
 function firstDraw() {
     // Get first cards
     var numberCard = GameConstants.CARDS_IN_HAND;
-    _lastDraw = [];
+    var draw = [];
+
     for (var i = 0; i < numberCard; i++) {
         var card = _cards.pop();
-        _lastDraw.push(card);
+        draw.push(card);
     }
+    return draw;
 };
 
-function getCard() {
+function drawOneCard() {
     // Return card on top
-    _lastDraw = [];
-    var card = _cards.pop();
-    _lastDraw.push(card);
+    return _cards.pop();
+};
+
+function saveSelectedCard(playerIndex, cards) {
+    _hands[playerIndex] = cards;
+};
+
+function removeSelectedCard(playerIndex) {
+    var i = 0,
+        length = _hands[playerIndex].length;
+    for (i = 0; i < length; i++) {
+        var card = _hands[playerIndex][i];
+        if (card.isSelected) {
+            _hands[playerIndex].splice(i, 1);
+            break;
+        }
+    }
+
+    if (_cards.length > 0) {
+        var card = drawOneCard();
+        _hands[playerIndex].push(card);
+    }
 };
 
 var CardStore = assign({}, EventEmitter.prototype, {
@@ -73,8 +97,18 @@ var CardStore = assign({}, EventEmitter.prototype, {
         return _cards;
     },
 
-    getLastDraw: function() {
-        return _lastDraw;
+    getHand: function(playerIndex) {
+        return _hands[playerIndex];
+    },
+
+    getSelectedCard: function(playerIndex) {
+        var i = 0,
+            length = _hands[playerIndex].length;
+        for (i = 0; i < length; i++) {
+            var card = _hands[playerIndex][i];
+            if (card.isSelected)
+                return card;
+        }
     },
 
     emitChange: function() {
@@ -94,14 +128,11 @@ var CardStore = assign({}, EventEmitter.prototype, {
 
         // Define what to do for certain actions
         switch (action.actionType) {
-            case CardConstants.CREATE_STACK:
-                createStack();
+            case CardConstants.SELECT_PLAYER_CARD:
+                saveSelectedCard(action.playerIndex, action.cards);
                 break;
-            case CardConstants.FIRST_DRAW:
-                firstDraw();
-                break;
-            case CardConstants.GET_CARD:
-                getCard();
+            case CardConstants.REMOVE_SELECTED_CARD:
+                removeSelectedCard(action.playerIndex);
                 break;
             default:
                 return true;

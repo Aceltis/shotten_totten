@@ -2,28 +2,26 @@ var React = require('react'),
 	Rules = require('./rules'),
 	Player = require('./player'),
 	Board = require('./board'),
-	CardStore = require('../stores/cardStore'),
-	CardActions = require('../actions/cardStoreActions');
+	TurnStore = require('../stores/turnStore');
 
-function getCardState() {
+function getTurnState() {
 	return {
-		cardStack: CardStore.getCards()
+		currentPlayerIndex: TurnStore.getCurrentIndex()
 	}
-};
+}
 
 var Game = React.createClass({
 	getInitialState: function() {
 		return {
-			cardStack: getCardState().cardStack,
-			showRules: !this.isMobile()
+			showRules: false,
+			currentPlayerIndex: getTurnState().currentPlayerIndex,
 		}
 	},
 	componentDidMount: function() {
-		CardStore.addChangeListener(this._onChange);
-		CardActions.createStack();
+		TurnStore.addChangeListener(this._onChange);
 	},
 	componentWillUnmount: function() {
-		CardStore.removeChangeListener(this._onChange);
+		TurnStore.removeChangeListener(this._onChange);
 	},
 	isMobile: function() {
 		return /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -34,11 +32,12 @@ var Game = React.createClass({
 	},
 	render: function() {
 		var containerClasses = "st-container st-effect-sidebar",
-			buttonClasses = "btn";
+			buttonClasses = "btn btn-primary";
 		if (this.state.showRules) {
 			containerClasses += " st-menu-open";
 			buttonClasses += " active";
 		}
+		
 		return (
 			<div className={containerClasses}>
 				<div className="st-pusher">
@@ -49,9 +48,9 @@ var Game = React.createClass({
 					<div className="st-content">
 						<div className="container-fluid fullHeight no-padding">
 							<div className="row fullHeight">
-								<Player />
+								<Player index={0} current={this.state.currentPlayerIndex===0} />
 								<Board />
-								<Player />
+								<Player index={1} current={this.state.currentPlayerIndex===1} />
 							</div>
 						</div>
 					</div>
@@ -60,7 +59,7 @@ var Game = React.createClass({
 		);
 	},
 	_onChange: function() {
-		this.setState(getCardState());
+		this.setState(getTurnState());
 	}
 });
 

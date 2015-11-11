@@ -1,4 +1,5 @@
 module.exports = {
+    CHANGE_CURRENT_PLAYER: 'CHANGE_CURRENT_PLAYER',
     CARDS_IN_HAND: 6,
     STONES: 9,
     STONES_SLOTS: 3,

@@ -1,7 +1,7 @@
 module.exports = {
-    CREATE_STACK: null,
-    FIRST_DRAW: null,
-    GET_CARD: null,
+    SELECT_PLAYER_CARD: 'SELECT_PLAYER_CARD',
+    REMOVE_SELECTED_CARD: 'REMOVE_SELECTED_CARD',
+    GET_CARD: 'GET_CARD',
     COLORS: ['blue', 'green', 'greenlight', 'red', 'purple', 'orange'],
     VALUES: {
         min: 1,
